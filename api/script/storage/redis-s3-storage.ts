@@ -537,6 +537,7 @@ export class RedisS3Storage implements storage.Storage {
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: blobId,
       Body: stream,
+      ContentLength: streamLength,
     };
 
     return q
