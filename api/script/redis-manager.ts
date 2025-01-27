@@ -105,7 +105,8 @@ export class RedisManager {
         auth_pass: process.env.REDIS_KEY,
         tls: {
           // Note: Node defaults CA's to those trusted by Mozilla
-          rejectUnauthorized: true,
+          // desc: s3에선 tls 설정이 필요없기에 해제
+          // rejectUnauthorized: true,
         },
       };
       this._opsClient = redis.createClient(redisConfig);
