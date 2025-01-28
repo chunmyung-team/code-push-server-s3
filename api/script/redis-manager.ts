@@ -109,8 +109,8 @@ export class RedisManager {
           // rejectUnauthorized: true,
         },
       };
-      this._opsClient = redis.createClient(redisConfig);
-      this._metricsClient = redis.createClient(redisConfig);
+      this._opsClient = redis.createClient(redisConfig).on("error", (err) => console.log("RedisOps Client Error", err));
+      this._metricsClient = redis.createClient(redisConfig).on("error", (err) => console.log("RedisMetrics Client Error", err));
       this._opsClient.on("error", (err: Error) => {
         console.error(err);
       });
