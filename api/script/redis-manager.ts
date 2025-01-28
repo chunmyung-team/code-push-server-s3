@@ -103,11 +103,6 @@ export class RedisManager {
         host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT,
         auth_pass: process.env.REDIS_KEY,
-        tls: {
-          // Note: Node defaults CA's to those trusted by Mozilla
-          // desc: s3에선 tls 설정이 필요없기에 해제
-          // rejectUnauthorized: true,
-        },
       };
       this._opsClient = redis.createClient(redisConfig).on("error", (err) => console.log("RedisOps Client Error", err));
       this._metricsClient = redis.createClient(redisConfig).on("error", (err) => console.log("RedisMetrics Client Error", err));
