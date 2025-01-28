@@ -104,8 +104,8 @@ export class RedisManager {
         port: process.env.REDIS_PORT,
         auth_pass: process.env.REDIS_KEY,
       };
-      this._opsClient = redis.createClient(redisConfig).on("error", (err) => console.log("RedisOps Client Error", err));
-      this._metricsClient = redis.createClient(redisConfig).on("error", (err) => console.log("RedisMetrics Client Error", err));
+      this._opsClient = redis.createClient(redisConfig);
+      this._metricsClient = redis.createClient(redisConfig);
       this._opsClient.on("error", (err: Error) => {
         console.error(err);
       });
@@ -220,14 +220,9 @@ export class RedisManager {
       return q(<DeploymentMetrics>null);
     }
 
-    console.log(1);
     return this._setupMetricsClientPromise
-      .then(() => {
-        console.log(2);
-        return this._promisifiedMetricsClient.hgetall(Utilities.getDeploymentKeyLabelsHash(deploymentKey));
-      })
+      .then(() => this._promisifiedMetricsClient.hgetall(Utilities.getDeploymentKeyLabelsHash(deploymentKey)))
       .then((metrics) => {
-        console.log(metrics);
         // Redis returns numerical values as strings, handle parsing here.
         if (metrics) {
           Object.keys(metrics).forEach((metricField) => {
