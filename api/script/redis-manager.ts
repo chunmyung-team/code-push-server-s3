@@ -225,9 +225,14 @@ export class RedisManager {
       return q(<DeploymentMetrics>null);
     }
 
+    console.log(1);
     return this._setupMetricsClientPromise
-      .then(() => this._promisifiedMetricsClient.hgetall(Utilities.getDeploymentKeyLabelsHash(deploymentKey)))
+      .then(() => {
+        console.log(2);
+        return this._promisifiedMetricsClient.hgetall(Utilities.getDeploymentKeyLabelsHash(deploymentKey));
+      })
       .then((metrics) => {
+        console.log(metrics);
         // Redis returns numerical values as strings, handle parsing here.
         if (metrics) {
           Object.keys(metrics).forEach((metricField) => {
