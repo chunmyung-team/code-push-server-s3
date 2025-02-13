@@ -71,7 +71,7 @@ export function start(done: (err?: any, server?: express.Express, storage?: Stor
 
       if (process.env.LOGGING) {
         app.use((req: express.Request, res: express.Response, next: (err?: any) => void): any => {
-          if (req.method !== "GET" && req.originalUrl !== "/") {
+          if (req.originalUrl !== "/") {
             console.log(); // Newline to mark new request
             console.log(`${new Date().toISOString()}[REST] Received ${req.method} request at ${req.originalUrl}`);
           }
