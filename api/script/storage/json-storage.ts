@@ -104,6 +104,7 @@ export class JsonStorage implements storage.Storage {
       accessKeyToAccountMap: this.accessKeyToAccountMap,
       accountToAccessKeysMap: this.accountToAccessKeysMap,
       accessKeyNameToAccountIdMap: this.accessKeyNameToAccountIdMap,
+      emailToAccountMap: this.emailToAccountMap,
     };
 
     const str = JSON.stringify(obj);
